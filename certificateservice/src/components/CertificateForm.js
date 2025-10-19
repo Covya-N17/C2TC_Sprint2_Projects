@@ -1,67 +1,90 @@
-import React, { useState, useEffect } from 'react';
-import { createCertificate, updateCertificate } from '../services/certificateService';
-import { deleteCertificate } from '../services/certificateService';
-import './CertificateForm.css';
+import React, { useState } from "react";
+import "./CertificateForm.css";
 
-const CertificateForm = ({ fetchCertificates, editingCertificate, setEditingCertificate }) => {
-  const [certificate, setCertificate] = useState({
-    year: '',
-    reg_no: '',
-    description: '',
-    certificate_number: '',
-    degree: '',
-    year_of_passing: '',
+function CertificateForm({ onAdd }) {
+  const [formData, setFormData] = useState({
+    year: "",
+    reg_no: "",
+    description: "",
+    certificate_number: "",
+    degree: "",
+    year_of_passing: "",
   });
 
-  useEffect(() => {
-    if (editingCertificate) {
-      setCertificate(editingCertificate);
-    } else {
-      setCertificate({
-        year: '',
-        reg_no: '',
-        description: '',
-        certificate_number: '',
-        degree: '',
-        year_of_passing: '',
-      });
-    }
-  }, [editingCertificate]);
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCertificate({ ...certificate, [name]: value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      if (editingCertificate) {
-        await updateCertificate(editingCertificate.id, certificate);
-      } else {
-        await createCertificate(certificate);
-      }
-      fetchCertificates();
-      setEditingCertificate(null);
-    } catch (error) {
-      console.error('Error saving certificate:', error);
-    }
+    onAdd(formData);
+    setFormData({
+      year: "",
+      reg_no: "",
+      description: "",
+      certificate_number: "",
+      degree: "",
+      year_of_passing: "",
+    });
   };
 
   return (
-    <div className="form-container">
-      <h2>{editingCertificate ? 'Edit Certificate' : 'Add Certificate'}</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="year" value={certificate.year} onChange={handleChange} placeholder="Year" required />
-        <input name="reg_no" value={certificate.reg_no} onChange={handleChange} placeholder="Registration No" required />
-        <input name="description" value={certificate.description} onChange={handleChange} placeholder="Description" required />
-        <input name="certificate_number" value={certificate.certificate_number} onChange={handleChange} placeholder="Certificate Number" required />
-        <input name="degree" value={certificate.degree} onChange={handleChange} placeholder="Degree" required />
-        <input name="year_of_passing" value={certificate.year_of_passing} onChange={handleChange} placeholder="Year of Passing" required />
-        <button type="submit">{editingCertificate ? 'Update' : 'Add'}</button>
-      </form>
-    </div>
+    <form className="certificate-form" onSubmit={handleSubmit}>
+      <h2>Add New Certificate</h2>
+
+      <div className="form-group">
+        <input
+          type="text"
+          name="year"
+          placeholder="Year"
+          value={formData.year}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="reg_no"
+          placeholder="Register Number"
+          value={formData.reg_no}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="certificate_number"
+          placeholder="Certificate Number"
+          value={formData.certificate_number}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="degree"
+          placeholder="Degree"
+          value={formData.degree}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="year_of_passing"
+          placeholder="Year of Passing"
+          value={formData.year_of_passing}
+          onChange={handleChange}
+          required
+        />
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+        ></textarea>
+      </div>
+
+      <button type="submit" className="submit-btn">Add Certificate</button>
+    </form>
   );
-};
+}
 
 export default CertificateForm;

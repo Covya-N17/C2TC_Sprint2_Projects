@@ -1,41 +1,44 @@
-import React from 'react';
-import { deleteCertificate } from '../services/certificateService';
-import { createCertificate, updateCertificate } from '../services/certificateService';
-import './CertificateList.css';
+import React from "react";
+import "./CertificateList.css";
 
-const CertificateList = ({ certificates, fetchCertificates, setEditingCertificate }) => {
-  const handleDelete = async (id) => {
-    try {
-      await deleteCertificate(id);
-      fetchCertificates();
-    } catch (error) {
-      console.error('Error deleting certificate:', error);
-    }
-  };
-
+function CertificateList({ certificates }) {
   return (
-    <div className="list-container">
-      <h2>Certificates</h2>
-      {certificates.length === 0 ? (
-        <p>No certificates found.</p>
-      ) : (
-        <div className="certificate-grid">
-          {certificates.map((cert) => (
-            <div key={cert.id} className="certificate-card">
-              <p><strong>Year:</strong> {cert.year}</p>
-              <p><strong>Reg No:</strong> {cert.reg_no}</p>
-              <p><strong>Description:</strong> {cert.description}</p>
-              <p><strong>Certificate No:</strong> {cert.certificate_number}</p>
-              <p><strong>Degree:</strong> {cert.degree}</p>
-              <p><strong>Year of Passing:</strong> {cert.year_of_passing}</p>
-              <button onClick={() => setEditingCertificate(cert)}>Edit</button>
-              <button onClick={() => handleDelete(cert.id)}>Delete</button>
-            </div>
-          ))}
-        </div>
-      )}
+    <div className="certificate-list">
+      <h2>Certificate Records</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Year</th>
+            <th>Reg No</th>
+            <th>Certificate No</th>
+            <th>Degree</th>
+            <th>Year of Passing</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {certificates.length > 0 ? (
+            certificates.map((cert) => (
+              <tr key={cert.id}>
+                <td>{cert.id}</td>
+                <td>{cert.year}</td>
+                <td>{cert.reg_no}</td>
+                <td>{cert.certificate_number}</td>
+                <td>{cert.degree}</td>
+                <td>{cert.year_of_passing}</td>
+                <td>{cert.description}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="7">No certificates available</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
-};
+}
 
 export default CertificateList;

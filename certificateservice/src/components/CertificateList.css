@@ -1,70 +1,85 @@
-.list-container {
-  width: 95%;
-  margin: 0 auto;
-  padding: 10px;
-}
-
-.list-container h2 {
+.certificate-list {
+  margin-top: 40px;
   text-align: center;
-  color: #1a73e8;
+  background: linear-gradient(135deg, #f0f4ff, #ffffff);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.3s ease;
+}
+
+.certificate-list:hover {
+  transform: scale(1.01);
+}
+
+.certificate-list h2 {
+  color: #003399;
+  font-size: 1.8rem;
+  font-weight: 600;
   margin-bottom: 25px;
-  font-size: 28px;
+  letter-spacing: 0.5px;
 }
 
-.certificate-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.certificate-card {
-  padding: 18px;
+.certificate-list table {
+  width: 100%;
+  border-collapse: collapse;
   border-radius: 12px;
-  background-color: #ffffff;
-  border: 1px solid #d1d9e6;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  background-color: white;
 }
 
-.certificate-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.certificate-card p {
+.certificate-list th,
+.certificate-list td {
+  border: 1px solid #e0e0e0;
+  padding: 14px 12px;
+  text-align: center;
   font-size: 15px;
-  margin: 8px 0;
-  color: #333;
 }
 
-.certificate-card strong {
-  color: #1a73e8;
+.certificate-list th {
+  background: linear-gradient(90deg, #007bff, #00b4d8);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-.certificate-card button {
-  margin-right: 8px;
-  padding: 8px 14px;
+.certificate-list tr:nth-child(even) {
+  background-color: #f7fbff;
+}
+
+.certificate-list tr:nth-child(odd) {
+  background-color: #eef5ff;
+}
+
+.certificate-list tr:hover {
+  background-color: #d8ecff;
+  transform: scale(1.005);
+  transition: all 0.2s ease-in-out;
+}
+
+.action-btn {
+  background: linear-gradient(90deg, #28a745, #34d058);
+  color: white;
+  padding: 6px 14px;
+  margin: 4px;
   border-radius: 6px;
   border: none;
   cursor: pointer;
-  font-size: 14px;
-  transition: 0.3s;
+  font-weight: 500;
+  transition: background 0.3s ease;
 }
 
-.certificate-card button:first-child {
-  background-color: #28a745;
-  color: white;
+.action-btn:hover {
+  background: linear-gradient(90deg, #218838, #28a745);
 }
 
-.certificate-card button:first-child:hover {
-  background-color: #218838;
+.delete-btn {
+  background: linear-gradient(90deg, #dc3545, #ff4d6d);
 }
 
-.certificate-card button:last-child {
-  background-color: #dc3545;
-  color: white;
-}
-
-.certificate-card button:last-child:hover {
-  background-color: #c82333;
+.delete-btn:hover {
+  background: linear-gradient(90deg, #b52a37, #dc3545);
 }

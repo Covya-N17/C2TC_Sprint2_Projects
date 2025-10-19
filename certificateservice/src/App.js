@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import CertificateForm from './components/CertificateForm';
-import CertificateList from './components/CertificateList';
-import { getAllCertificates } from './services/certificateService';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import CertificateForm from "./components/CertificateForm";
+import CertificateList from "./components/CertificateList";
+import "./App.css";
 
 function App() {
   const [certificates, setCertificates] = useState([]);
-  const [editingCertificate, setEditingCertificate] = useState(null);
 
+  // Fetch all certificates
   const fetchCertificates = async () => {
     try {
-      const data = await getAllCertificates();
+      const response = await fetch("/api/certificates");
+      const data = await response.json();
       setCertificates(data);
     } catch (error) {
-      console.error('Error fetching certificates:', error);
+      console.error("Error fetching certificates:", error);
     }
   };
 
@@ -21,19 +21,27 @@ function App() {
     fetchCertificates();
   }, []);
 
+  // Add new certificate
+  const addCertificate = async (certificate) => {
+    try {
+      const response = await fetch("/api/certificates", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(certificate),
+      });
+      if (response.ok) {
+        fetchCertificates();
+      }
+    } catch (error) {
+      console.error("Error adding certificate:", error);
+    }
+  };
+
   return (
-    <div className="App">
-      <h1>Certificate Management</h1>
-      <CertificateForm
-        fetchCertificates={fetchCertificates}
-        editingCertificate={editingCertificate}
-        setEditingCertificate={setEditingCertificate}
-      />
-      <CertificateList
-        certificates={certificates}
-        fetchCertificates={fetchCertificates}
-        setEditingCertificate={setEditingCertificate}
-      />
+    <div className="app-container">
+      <h1>🎓 Certificate Management System</h1>
+      <CertificateForm onAdd={addCertificate} />
+      <CertificateList certificates={certificates} />
     </div>
   );
 }
