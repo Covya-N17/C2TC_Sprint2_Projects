@@ -1,10 +1,10 @@
 import React from "react";
 import "./CertificateList.css";
 
-function CertificateList({ certificates }) {
+function CertificateList({ certificates, onEdit, onDelete }) {
   return (
     <div className="certificate-list">
-      <h2>Certificate Records</h2>
+      <h2> Certificate Records</h2>
       <table>
         <thead>
           <tr>
@@ -15,6 +15,8 @@ function CertificateList({ certificates }) {
             <th>Degree</th>
             <th>Year of Passing</th>
             <th>Description</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -28,11 +30,21 @@ function CertificateList({ certificates }) {
                 <td>{cert.degree}</td>
                 <td>{cert.year_of_passing}</td>
                 <td>{cert.description}</td>
+                <td>
+                  <button className="edit-btn" onClick={() => onEdit(cert)}>
+                    Edit
+                  </button>
+                </td>
+                <td>
+                  <button className="delete-btn" onClick={() => onDelete(cert.id)}>
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="7">No certificates available</td>
+              <td colSpan="9">No certificates available</td>
             </tr>
           )}
         </tbody>

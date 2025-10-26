@@ -1,85 +1,96 @@
+/* ===== Certificate Table ===== */
 .certificate-list {
-  margin-top: 40px;
-  text-align: center;
-  background: linear-gradient(135deg, #f0f4ff, #ffffff);
+  margin-top: 30px;
+  background: linear-gradient(145deg, #f0f4f8, #ffffff);
   padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  width: 95%;
-  margin-left: auto;
-  margin-right: auto;
-  transition: all 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 10px 10px 30px rgba(0,0,0,0.05), -10px -10px 30px rgba(255,255,255,0.7);
+  width: 90%;
+  max-width: 1000px;
+  text-align: center;
+  position: relative;
 }
 
-.certificate-list:hover {
-  transform: scale(1.01);
+/* Heading with symbol */
+.certificate-list h2::before {
+  content: "🎓 ";
+  font-size: 24px;
 }
 
-.certificate-list h2 {
-  color: #003399;
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 25px;
-  letter-spacing: 0.5px;
-}
-
+/* Table styles */
 .certificate-list table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: white;
+  text-align: center;
+  color: #000;
 }
 
 .certificate-list th,
 .certificate-list td {
-  border: 1px solid #e0e0e0;
-  padding: 14px 12px;
+  border: 1px solid #ddd;
+  padding: 12px;
   text-align: center;
-  font-size: 15px;
 }
 
 .certificate-list th {
-  background: linear-gradient(90deg, #007bff, #00b4d8);
-  color: white;
+  background-color: #2575fc;
+  color: #fff;
   font-weight: 600;
-  text-transform: uppercase;
 }
 
 .certificate-list tr:nth-child(even) {
-  background-color: #f7fbff;
-}
-
-.certificate-list tr:nth-child(odd) {
-  background-color: #eef5ff;
+  background-color: #e3f2fd;
 }
 
 .certificate-list tr:hover {
-  background-color: #d8ecff;
-  transform: scale(1.005);
-  transition: all 0.2s ease-in-out;
+  background-color: #d0e4ff;
 }
 
-.action-btn {
-  background: linear-gradient(90deg, #28a745, #34d058);
-  color: white;
-  padding: 6px 14px;
-  margin: 4px;
-  border-radius: 6px;
-  border: none;
+/* Buttons with only one symbol each */
+.edit-btn {
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: 500;
-  transition: background 0.3s ease;
 }
 
-.action-btn:hover {
-  background: linear-gradient(90deg, #218838, #28a745);
+.edit-btn::before {
+  content: "✏️ "; /* only one symbol */
 }
 
 .delete-btn {
-  background: linear-gradient(90deg, #dc3545, #ff4d6d);
+  background-color: #e74c3c;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.delete-btn::before {
+  content: "🗑️ "; /* only one symbol */
+}
+
+/* Hover effects for buttons */
+.edit-btn:hover {
+  transform: scale(1.05);
 }
 
 .delete-btn:hover {
-  background: linear-gradient(90deg, #b52a37, #dc3545);
+  transform: scale(1.05);
+}
+
+/* Center all form & table modules */
+.certificate-form,
+.certificate-list {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .certificate-list table { font-size: 13px; }
+  button { font-size: 14px; padding: 6px 10px; }
 }

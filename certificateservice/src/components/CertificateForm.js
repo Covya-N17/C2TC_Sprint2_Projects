@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import "./CertificateForm.css";
 
-function CertificateForm({ onAdd }) {
-  const [formData, setFormData] = useState({
-    year: "",
-    reg_no: "",
-    description: "",
-    certificate_number: "",
-    degree: "",
-    year_of_passing: "",
-  });
+function CertificateForm({ onAdd, onUpdate, isUpdate, currentData }) {
+  const [formData, setFormData] = useState(
+    currentData || {
+      year: "",
+      reg_no: "",
+      certificate_number: "",
+      degree: "",
+      year_of_passing: "",
+      description: "",
+    }
+  );
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,21 +19,24 @@ function CertificateForm({ onAdd }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAdd(formData);
+    if (isUpdate) {
+      onUpdate(formData);
+    } else {
+      onAdd(formData);
+    }
     setFormData({
       year: "",
       reg_no: "",
-      description: "",
       certificate_number: "",
       degree: "",
       year_of_passing: "",
+      description: "",
     });
   };
 
   return (
     <form className="certificate-form" onSubmit={handleSubmit}>
       <h2>Add New Certificate</h2>
-
       <div className="form-group">
         <input
           type="text"
@@ -82,7 +87,9 @@ function CertificateForm({ onAdd }) {
         ></textarea>
       </div>
 
-      <button type="submit" className="submit-btn">Add Certificate</button>
+      <button type="submit" className="submit-btn">
+        {isUpdate ? "Update Certificate" : "Add Certificate"}
+      </button>
     </form>
   );
 }
